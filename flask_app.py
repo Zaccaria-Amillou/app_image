@@ -96,13 +96,16 @@ app = Flask(__name__)
 model = tf.lite.Interpreter(model_path='model/ResNet50_U-Net_basic.tflite')
 model.allocate_tensors()
 
-# Endpoint pour récupérer l'image et le masque réels en fonction de l'id sélectionné
-@app.route('/', methods=["GET","POST"])
-def index():
+@app.route('/', methods=['GET','POST'])
+def homepage():
+    return render_template('index.html')
 
+@app.route('/prediction', methods=["GET"])
+@app.route('/prediction/', methods=["GET"])
+def get_prediction():
     global selected_id
-    if request.form.get('file'):
-        selected_id = int(request.form.get('file'))
+    if request.args.get('file'):
+        selected_id = int(request.args.get('file'))
 
     img_path = img_paths + path_files[selected_id-1] + 'leftImg8bit.png'
     mask_path = mask_paths + path_files[selected_id-1] + 'gtFine_labelIds.png'
@@ -128,7 +131,16 @@ def index():
     cv2.imwrite('static/data/predict/img.png', img)
     cv2.imwrite('static/data/predict/mask.png', m)
 
-    return render_template('index.html', sended=False, nb_image=NB_IMAGES, selected=selected_id)
+    return render_template('prediction.html', sended=False, nb_image=NB_IMAGES, selected=selected_id)
+
+@app.route('/prediction', methods=["POST"])
+@app.route('/prediction/', methods=["POST"])
+def post_prediction():
+    global selected_id
+    if request.form.get('file'):
+        selected_id = int(request.form.get('file'))
+
+    return redirect(url_for('get_prediction', file=selected_id))
     
 
 # Endpoint pour segmenter l'image choisie à partir de l'app flask
@@ -158,11 +170,7 @@ def predictImage():
 
     cv2.imwrite('static/data/predict/combined.png', added_image)
 
-    return render_template('index.html',sended=True,nb_image=NB_IMAGES, selected=selected_id)
-
-@app.route('/home', methods=['GET'])
-def home():
-    return render_template('home.html')
+    return render_template('prediction.html',sended=True,nb_image=NB_IMAGES, selected=selected_id)
 
 @app.route('/segment', methods=['GET', 'POST'])
 @app.route('/segment/', methods=['GET', 'POST'])

@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<head>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='script/style.css') }}">
+</head>
+
+<div class="page">
+    <h1>Segmentation d'image</h1>
+
+    <form method="post" action="/prediction">
+        <div class="form-group w-25 container">
+          <div class="p-2">
+            <label for="file_id">Choisir un id d'image</label>
+          </div>
+          <div class="p-2">
+            <input type="range" class="form-control-range" id="file_id" name="file" min="1" max="{{nb_image}}" value="{{selected}}" onchange="this.form.submit()">
+          </div>
+        </div>
+        <div class="d-flex flex-row justify-content-center">
+          <div class="p-2 -flex flex-column">
+            <h2 class="p-2">Image réelle</h1>
+            <img class="p-2" src="{{url_for('static', filename='data/predict/')}}img.png">
+          </div>
+          <div class="p-2 -flex flex-column">
+            <h2 class="p-2">Masque réel</h1>
+            <img class="p-2" src="{{url_for('static', filename='data/predict/')}}mask.png">
+          </div>
+        </div>
+    </form>
+    <div class="container">
+      <form method="post" action="/predict">
+        <button type="submit" class="btn btn-primary">Soumettre</button>
+      </form>
+    </div>
+    {% if sended == True %}
+    <div class="d-flex flex-column justify-content-center">
+      <h2 class="p-2">Prédiction du modèle</h1>
+      <div class="d-flex flex-row justify-content-center">
+        <img class="p-2" src="{{url_for('static', filename='data/predict/')}}mask_predicted.png">
+        <img class="p-2" src="{{url_for('static', filename='data/predict/')}}combined.png">
+      </div>
+    </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

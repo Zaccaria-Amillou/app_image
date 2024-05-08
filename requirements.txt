@@ -1,0 +1,5 @@
+tensorflow==2.13
+pandas
+Pillow
+opencv-python
+flask
