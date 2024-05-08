@@ -4,7 +4,7 @@ import cv2
 from PIL import Image
 import io
 import tensorflow as tf
-from flask import Flask, request, send_file, render_template
+from flask import Flask, request, send_file, render_template, redirect, url_for
 from keras.models import load_model
 from keras.losses import categorical_crossentropy
 from keras import backend as K
@@ -132,7 +132,7 @@ def index():
     
 
 # Endpoint pour segmenter l'image choisie à partir de l'app flask
-@app.route('/predict/', methods=["POST"])
+@app.route('/predict/', methods=['GET', 'POST'])
 def predictImage():
     img_path = img_paths + path_files[selected_id-1] + 'leftImg8bit.png'
 
@@ -160,17 +160,31 @@ def predictImage():
 
     return render_template('index.html',sended=True,nb_image=NB_IMAGES, selected=selected_id)
 
-# Endpoint pour segmenter une image quelconque envoyée depuis une requête API
-@app.route('/segment/', methods=["POST"])
+@app.route('/segment', methods=['GET', 'POST'])
+@app.route('/segment/', methods=['GET', 'POST'])
 def segmentImage():
+    if request.method == 'POST':
+        # Handle the POST request here
+        file = request.files.get('image')
 
-    test = request.files.get('image')
+        if not file:
+            return "No image uploaded", 400
 
-    if test:
-        image = Image.open(test)
+        # Open the image file
+        image = Image.open(file.stream)
+
+        # Resize the image
+        image = image.resize((256, 256))
+
+        # Save the resized original image to a static directory
+        image.save('static/data/original/original.png')
 
         img = prepare_img(image, (256,256))
-        y_pred = model.predict(img)
+        img = img.astype('float32')  # Convert the input tensor to float32
+        input_details = model.get_input_details()
+        model.set_tensor(input_details[0]['index'], img)
+        model.invoke()
+        y_pred = model.get_tensor(model.get_output_details()[0]['index'])
         y_pred_argmax=np.argmax(y_pred, axis=3)
 
         m = np.empty((y_pred_argmax[0].shape[0],y_pred_argmax[0].shape[1],3), dtype='uint8')
@@ -178,22 +192,29 @@ def segmentImage():
             for j in range(y_pred_argmax[0].shape[1]):
                 m[i][j] = cats_colors[y_pred_argmax[0][i][j]]
 
-        m = cv2.resize(m, (400,200))
+        m = cv2.resize(m, (256,256))
 
         im_bgr = cv2.cvtColor(m, cv2.COLOR_RGB2BGR)
 
         img = Image.fromarray(im_bgr)
 
-        file_object = io.BytesIO()
+        # Save the segmented image to a static directory
+        img.save('static/data/segmented/segmented.png')
 
-        img.save(file_object, 'png')
+        # Identify the categories present in the image
+        unique_categories = np.unique(y_pred_argmax)
+        present_categories = [key for key, value in cats_id.items() if value in unique_categories]
 
-        file_object.seek(0)
-
-        return send_file(file_object, mimetype='image/png')
-    
+        # Redirect to the results page
+        return redirect(url_for('results', categories=present_categories))
     else:
-        return "Image not send", 400
+        # Handle the GET request here
+        return render_template('segment.html')
+
+@app.route('/results', methods=['GET'])
+def results():
+    categories = request.args.getlist('categories')
+    return render_template('results.html', categories=categories)
 
 if __name__ == "__main__":
     app.run()

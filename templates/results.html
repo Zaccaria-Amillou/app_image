@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="container mt-5">
+    <h2 class="text-center">Segmentation Results</h2>
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <img src="{{ url_for('static', filename='data/original/original.png') }}" class="card-img-top" alt="Original Image">
+                <div class="card-body">
+                    <h5 class="card-title">Original Image</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <img src="{{ url_for('static', filename='data/segmented/segmented.png') }}" class="card-img-top" alt="Segmented Image">
+                <div class="card-body">
+                    <h5 class="card-title">Segmented Image</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h3 class="mt-4">Categories Present in the Image:</h3>
+    <ul class="list-group">
+        {% for category in categories %}
+            <li class="list-group-item">{{ category }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
