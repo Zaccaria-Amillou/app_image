@@ -1,11 +1,11 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-<div class="container">
-  <h1>Segment Image</h1>
-  <form action="/segment/" method="post" enctype="multipart/form-data">
-    <input type="file" name="image" accept="image/*">
-    <input type="submit" value="Upload">
+<div class="container py-md-5 py-3">
+  <h1 class="text-center">Segment Image</h1>
+  <form action="/segment/" method="post" enctype="multipart/form-data" class="d-flex flex-column align-items-center">
+    <input type="file" name="image" accept="image/*" class="my-3">
+    <input type="submit" value="Upload" class="btn btn-primary">
   </form>
 </div>
 {% endblock %}
