@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Définition du jeu de caractères et du point de vue pour le responsive design -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Lien vers les fichiers CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Titre de la page -->
     <title>Flask App</title>
+
+    <!-- Style CSS interne pour les petites résolutions d'écran -->
     <style>
       @media (max-width: 576px) {
         .navbar-brand {
@@ -15,15 +22,19 @@
     </style>
   </head>
   <body>
+    <!-- Barre de navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container">
+        <!-- Logo et nom de l'application -->
         <a class="navbar-brand" href="#">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="30" height="30" class="mr-2"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M0 96C0 60.7 28.7 32 64 32H448c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zM323.8 202.5c-4.5-6.6-11.9-10.5-19.8-10.5s-15.4 3.9-19.8 10.5l-87 127.6L170.7 297c-4.6-5.7-11.5-9-18.7-9s-14.2 3.3-18.7 9l-64 80c-5.8 7.2-6.9 17.1-2.9 25.4s12.4 13.6 21.6 13.6h96 32H424c8.9 0 17.1-4.9 21.2-12.8s3.6-17.4-1.4-24.7l-120-176zM112 192a48 48 0 1 0 0-96 48 48 0 1 0 0 96z"/></svg>
           Segmentation des images
         </a>
+        <!-- Bouton pour afficher le menu de navigation sur les petits écrans -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+        <!-- Menu de navigation -->
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
@@ -39,18 +50,20 @@
         </div>
       </div>
     </nav>
+     <!-- Contenu principal de la page -->
     <main role="main" class="container py-md-5 py-3">
       {% block body %}
       {% endblock %}
     </main>
 
+    <!-- Pied de page -->
     <footer class="footer mt-auto py-3 bg-light">
       <div class="container">
         <span class="text-muted">© 2024 Segmentation des images - Zaccaria Amillou</span>
       </div>
     </footer>
 
-    <!-- Bootstrap Javascripts -->  
+    <!-- Scripts Javascript de Bootstrap -->  
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

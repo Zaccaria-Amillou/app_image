@@ -1,74 +1,118 @@
+/* Appliquer des styles lorsque la largeur de la fenêtre est de 576 pixels ou moins */
 @media (max-width: 576px) {
+    /* Réduire la taille de la police de la marque de la barre de navigation */
     .navbar-brand {
       font-size: 0.8rem;
     }
+    /* Ajouter du padding au conteneur */
     .container {
         padding: 1em;
     }
+    /* Définir la taille de la police pour h1 */
     h1 {
         font-size: 2em;
     }
+    /* Définir la taille de la police pour h2 */
     h2 {
         font-size: 1.5em;
     }
 }
-  
+
+/* Définir les styles pour le corps de la page */
 body {
+    /* Définir la police */
     font-family: 'Roboto', sans-serif;
+    /* Définir la couleur de fond */
     background-color: #f5f5f5;
+    /* Définir la couleur du texte */
     color: #333;
 }
 
+/* Définir les styles pour le conteneur */
 .container {
+    /* Définir la largeur maximale */
     max-width: 960px;
+    /* Centrer le conteneur */
     margin: 0 auto;
+    /* Ajouter du padding */
     padding: 2em;
+    /* Définir la couleur de fond */
     background-color: #fff;
+    /* Ajouter une ombre */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* Utiliser flexbox pour la mise en page */
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-
+/* Définir les styles pour h1 et h2 */
 h1, h2 {
+    /* Centrer le texte */
     text-align: center;
+    /* Définir le poids de la police */
     font-weight: 300;
 }
 
+/* Définir les styles pour h1 */
 h1 {
+    /* Définir la taille de la police */
     font-size: 2.5em;
+    /* Définir la couleur du texte */
     color: #333;
 }
 
+/* Définir les styles pour h2 */
 h2 {
+    /* Définir la taille de la police */
     font-size: 2em;
+    /* Définir la couleur du texte */
     color: #666;
 }
 
+/* Définir les styles pour .btn */
 .btn {
+    /* Afficher en ligne */
     display: inline-block;
+    /* Définir le poids de la police */
     font-weight: 400;
+    /* Définir la couleur du texte */
     color: #212529;
+    /* Centrer le texte */
     text-align: center;
+    /* Aligner verticalement le texte */
     vertical-align: middle;
+    /* Changer le curseur en pointeur */
     cursor: pointer;
+    /* Définir la couleur de fond */
     background-color: #007bff;
+    /* Définir la couleur de la bordure */
     border: 1px solid transparent;
+    /* Ajouter du padding */
     padding: .375rem .75rem;
+    /* Définir la taille de la police */
     font-size: 1rem;
+    /* Définir la hauteur de ligne */
     line-height: 1.5;
+    /* Arrondir les coins */
     border-radius: .25rem;
+    /* Ajouter une transition */
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
+/* Définir les styles pour .button-container */
 .button-container {
+    /* Utiliser flexbox pour la mise en page */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+/* Définir les styles pour .btn:hover */
 .btn:hover {
+    /* Définir la couleur du texte */
     color: #212529;
+    /* Définir la couleur de fond */
     background-color: #0056b3;
+    /* Définir la couleur de la bordure */
     border-color: #0056b3;
 }

@@ -3,21 +3,27 @@
 {% block body %}
 
 <head>
+  <!-- Lien vers le fichier CSS -->
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='script/style.css') }}">
 </head>
 
 <div class="page">
+    <!-- Titre de la page -->
     <h1 class="text-center">Segmentation d'image</h1>
 
+    <!-- Formulaire pour choisir un ID d'image -->
     <form method="post" action="/prediction">
         <div class="form-group container">
           <div class="py-2">
+            <!-- Label pour le choix de l'ID d'image -->
             <label for="file_id">Choisir un id d'image</label>
           </div>
           <div class="py-2">
+            <!-- Contrôle de la plage pour choisir un ID d'image -->
             <input type="range" class="form-control-range" id="file_id" name="file" min="1" max="{{nb_image}}" value="{{selected}}" onchange="this.form.submit()">
           </div>
         </div>
+        <!-- Affichage de l'image réelle et du masque réel -->
         <div class="d-flex flex-column flex-md-row justify-content-center">
           <div class="p-2">
             <h2 class="p-2 text-center">Image réelle</h2>
@@ -29,11 +35,13 @@
           </div>
         </div>
     </form>
+    <!-- Bouton pour soumettre la prédiction -->
     <div class="container text-center">
       <form method="post" action="/predict">
         <button type="submit" class="btn btn-primary">Soumettre</button>
       </form>
     </div>
+    <!-- Affichage de la prédiction du modèle si elle a été envoyée -->
     {% if sended == True %}
     <div class="d-flex flex-column justify-content-center">
       <h2 class="p-2 text-center">Prédiction du modèle</h2>

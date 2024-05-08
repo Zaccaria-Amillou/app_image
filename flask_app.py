@@ -9,12 +9,15 @@ from keras.models import load_model
 from keras.losses import categorical_crossentropy
 from keras import backend as K
 
-
+# Nombre des images
 NB_IMAGES = 20
+
+# definition des variables
 selected_id = 1
 img_paths = 'static/data/img/'
 mask_paths = 'static/data/mask/'
 
+# Catégories des images
 cats = {'void': [0, 1, 2, 3, 4, 5, 6],
  'flat': [7, 8, 9, 10],
  'construction': [11, 12, 13, 14, 15, 16],
@@ -25,6 +28,7 @@ cats = {'void': [0, 1, 2, 3, 4, 5, 6],
  'vehicle': [26, 27, 28, 29, 30, 31, 32, 33, -1]
  }
 
+# Idéntifiant des catégories
 cats_id = {
  'void': (0),
  'flat': (1),
@@ -36,6 +40,7 @@ cats_id = {
  'vehicle': (7)
 }
 
+# Couleurs des catégories
 cats_colors = {
  0: (0,0,0),
  1: (50,50,50),
@@ -47,8 +52,9 @@ cats_colors = {
  7: (150,0,200)
 }
 
-# Fonctions loss
+
 def dice_coeff(y_true, y_pred):
+    """Calcule le coefficient de Dice entre les prédictions et les vraies valeurs."""
     smooth = 1.
     y_true_f = K.cast(K.flatten(y_true), K.floatx())
     y_pred_f = K.cast(K.flatten(y_pred), K.floatx())
@@ -57,22 +63,25 @@ def dice_coeff(y_true, y_pred):
     return score
 
 def dice_loss(y_true, y_pred):
+    """Calcule la perte de Dice entre les prédictions et les vraies valeurs."""
     loss = 1 - dice_coeff(y_true, y_pred)
     return loss
 
 def total_loss(y_true, y_pred):
+    """Calcule la perte totale entre les prédictions et les vraies valeurs."""
     loss = categorical_crossentropy(y_true, y_pred) + (3*dice_loss(y_true, y_pred))
     return loss
 
-# Prépare les données pour la segmentation avec model.predict()
+
 def get_data_prepared(path_X, dim):
+    """Prépare les données pour la segmentation."""
     X = np.array([cv2.resize(cv2.cvtColor(cv2.imread(path_X), cv2.COLOR_BGR2RGB), dim)])
     X = X / 255
 
     return X
 
-# Prépare l'image pour la segmentation
 def prepare_img(img, dim):
+    """Prépare l'image pour la segmentation."""
     X = np.array([cv2.resize(np.array(img), dim)])
     X = X / 255
 
@@ -80,6 +89,7 @@ def prepare_img(img, dim):
 
 # Recupère les chemins d'accès des fichiers
 def getPathFiles():
+    """Récupère les chemins d'accès des fichiers."""
     path_files = []
 
     # img set
@@ -93,16 +103,19 @@ path_files = getPathFiles()
 
 app = Flask(__name__)
 
+# chargement du modèle
 model = tf.lite.Interpreter(model_path='model/ResNet50_U-Net_basic.tflite')
 model.allocate_tensors()
 
 @app.route('/', methods=['GET','POST'])
 def homepage():
+    """Route pour la page d'accueil."""
     return render_template('index.html')
 
 @app.route('/prediction', methods=["GET"])
 @app.route('/prediction/', methods=["GET"])
 def get_prediction():
+    """Route pour obtenir une prédiction."""
     global selected_id
     if request.args.get('file'):
         selected_id = int(request.args.get('file'))
@@ -136,6 +149,7 @@ def get_prediction():
 @app.route('/prediction', methods=["POST"])
 @app.route('/prediction/', methods=["POST"])
 def post_prediction():
+    """Route pour poster une prédiction."""
     global selected_id
     if request.form.get('file'):
         selected_id = int(request.form.get('file'))
@@ -146,6 +160,7 @@ def post_prediction():
 # Endpoint pour segmenter l'image choisie à partir de l'app flask
 @app.route('/predict/', methods=['GET', 'POST'])
 def predictImage():
+    """Route pour prédire une image."""
     img_path = img_paths + path_files[selected_id-1] + 'leftImg8bit.png'
 
     img = get_data_prepared(img_path, (256,256))
@@ -175,8 +190,9 @@ def predictImage():
 @app.route('/segment', methods=['GET', 'POST'])
 @app.route('/segment/', methods=['GET', 'POST'])
 def segmentImage():
+    """Route pour segmenter une image."""
     if request.method == 'POST':
-        # Handle the POST request here
+        # Handle the POST request 
         file = request.files.get('image')
 
         if not file:
@@ -225,6 +241,7 @@ def segmentImage():
 
 @app.route('/results', methods=['GET'])
 def results():
+    """Route pour les résultats."""
     categories = request.args.getlist('categories')
     return render_template('results.html', categories=categories)
 

@@ -1,29 +1,46 @@
 {% extends "layout.html" %}
 
 {% block body %}
+<!-- Conteneur principal -->
 <div class="container mt-5">
+    <!-- Titre -->
     <h2 class="text-center">Segmentation Results</h2>
+    <!-- Début de la rangée d'images -->
     <div class="row mt-4">
+        <!-- Colonne pour l'image originale -->
         <div class="col-12 col-md-6 mb-4 mb-md-0">
+            <!-- Carte pour l'image originale -->
             <div class="card h-100">
+                <!-- Image originale -->
                 <img src="{{ url_for('static', filename='data/original/original.png') }}" class="card-img-top" alt="Original Image">
+                <!-- Corps de la carte -->
                 <div class="card-body">
+                    <!-- Titre de la carte -->
                     <h5 class="card-title">Original Image</h5>
                 </div>
             </div>
         </div>
+        <!-- Colonne pour l'image segmentée -->
         <div class="col-12 col-md-6">
+            <!-- Carte pour l'image segmentée -->
             <div class="card h-100">
+                <!-- Image segmentée -->
                 <img src="{{ url_for('static', filename='data/segmented/segmented.png') }}" class="card-img-top" alt="Segmented Image">
+                <!-- Corps de la carte -->
                 <div class="card-body">
+                    <!-- Titre de la carte -->
                     <h5 class="card-title">Segmented Image</h5>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Titre pour la liste des catégories -->
     <h3 class="mt-4">Categories Present in the Image:</h3>
+    <!-- Début de la liste des catégories -->
     <ul class="list-group">
+        <!-- Boucle à travers chaque catégorie -->
         {% for category in categories %}
+            <!-- Élément de la liste pour une catégorie -->
             <li class="list-group-item">{{ category }}</li>
         {% endfor %}
     </ul>
