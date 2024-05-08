@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <h1 class="font-weight-light">Bienvenue sur notre site de segmentation d'images!</h1>
+            <p class="lead">Ce modèle utilise un réseau de neurones pour segmenter les images en différentes catégories.</p>
+            <p class="lead">Vous pouvez tester le modèle en utilisant une des images prédéfinies ou en téléchargeant votre propre image.</p>
+            <div class="mt-4">
+                <a href="/predict/" class="btn btn-primary btn-lg">Tester avec une image prédéfinie</a>
+                <a href="/segment/" class="btn btn-secondary btn-lg">Tester avec votre propre image</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

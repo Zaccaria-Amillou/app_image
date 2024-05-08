@@ -160,6 +160,10 @@ def predictImage():
 
     return render_template('index.html',sended=True,nb_image=NB_IMAGES, selected=selected_id)
 
+@app.route('/home', methods=['GET'])
+def home():
+    return render_template('home.html')
+
 @app.route('/segment', methods=['GET', 'POST'])
 @app.route('/segment/', methods=['GET', 'POST'])
 def segmentImage():
