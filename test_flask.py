@@ -93,7 +93,7 @@ path_files = getPathFiles()
 
 app = Flask(__name__)
 
-model = tf.lite.Interpreter(model_path='../model/checkpointVGG19_U-Net_base.tflite')
+model = tf.lite.Interpreter(model_path='model/ResNet50_U-Net_basic.tflite')
 model.allocate_tensors()
 
 # Endpoint pour récupérer l'image et le masque réels en fonction de l'id sélectionné
