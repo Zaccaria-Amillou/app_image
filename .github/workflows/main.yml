@@ -12,12 +12,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Push to GitHub
-      run: |
-        git remote add origin https://github.com/Zaccaria-Amillou/app_image.git
-        git push origin main
-
     - name: Update PythonAnywhere web app
       run: |
         curl -H "Authorization: Token ${{ secrets.PA_API_TOKEN }}" \
-             -X POST https://www.pythonanywhere.com/api/v0/user/zacam/webapps/app_image/reload/
+             -X POST https://www.pythonanywhere.com/api/v0/user/zacam/app_image/reload/
