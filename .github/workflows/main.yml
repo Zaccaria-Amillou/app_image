@@ -27,4 +27,4 @@ jobs:
     - name: Push to PythonAnywhere
       run: |
         git remote add pythonanywhere ssh://zacam@ssh.pythonanywhere.com/home/zacam/repo.git
-        git push pythonanywhere main
+        git push pythonanywhere main  
