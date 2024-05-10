@@ -48,4 +48,4 @@ jobs:
         chmod +x update_pa.sh
 
         # Use PythonAnywhere API to run the bash script
-        pythonanywhere run_bash zacam update_pa.sh
+        python -c "import pythonanywhere as pa; pa.run_bash('zacam', 'update_pa.sh')"
