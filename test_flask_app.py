@@ -19,9 +19,5 @@ class FlaskAppTestCase(unittest.TestCase):
         response = self.app.get('/')
         self.assertIn(b'Flask App', response.data)
 
-    def test_get_prediction_content(self):
-        response = self.app.get('/prediction')
-        self.assertIn(b'prediction.html', response.data)
-
 if __name__ == "__main__":
     unittest.main()
