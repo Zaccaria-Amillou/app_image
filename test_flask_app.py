@@ -17,7 +17,7 @@ class FlaskAppTestCase(unittest.TestCase):
 
     def test_homepage_content(self):
         response = self.app.get('/')
-        self.assertIn(b'index.html', response.data)
+        self.assertIn(b'Flask App', response.data)
 
     def test_get_prediction_content(self):
         response = self.app.get('/prediction')
