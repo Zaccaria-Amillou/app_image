@@ -20,6 +20,10 @@ jobs:
         ssh-keyscan ssh.pythonanywhere.com >> ~/.ssh/known_hosts
         ls -la ~/.ssh/
 
+    - name: Test SSH connection
+      run: |
+        ssh -T git@ssh.pythonanywhere.com
+
     - name: Push to PythonAnywhere
       run: |
         git remote add pythonanywhere ssh://zacam@ssh.pythonanywhere.com/home/zacam/repo.git
