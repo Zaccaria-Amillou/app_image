@@ -246,11 +246,5 @@ def results():
     categories = request.args.getlist('categories')
     return render_template('results.html', categories=categories)
 
-@app.route('/deploy', methods=['POST'])
-def deploy():
-    subprocess.check_call(['git', 'pull'])
-    return 'Updated PythonAnywhere app', 200
-
-
 if __name__ == "__main__":
     app.run()
