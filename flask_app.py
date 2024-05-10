@@ -7,6 +7,7 @@ import tensorflow as tf
 from flask import Flask, request, send_file, render_template, redirect, url_for
 from keras.models import load_model
 from keras.losses import categorical_crossentropy
+import subprocess
 from keras import backend as K
 
 # Nombre des images
@@ -244,6 +245,12 @@ def results():
     """Route pour les résultats."""
     categories = request.args.getlist('categories')
     return render_template('results.html', categories=categories)
+
+@app.route('/deploy', methods=['POST'])
+def deploy():
+    subprocess.check_call(['git', 'pull'])
+    return 'Updated PythonAnywhere app', 200
+
 
 if __name__ == "__main__":
     app.run()
