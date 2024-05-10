@@ -12,16 +12,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up SSH
+    - name: Reload PythonAnywhere web app
       run: |
-        mkdir -p ~/.ssh/
-        echo "${{ secrets.PA_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan ssh.pythonanywhere.com >> ~/.ssh/known_hosts
-
-    - name: Push to PythonAnywhere
-      env:
-        PA_API_TOKEN: ${{ secrets.PA_API_TOKEN }}
-      run: |
-        git remote add pythonanywhere ssh://zacam@ssh.pythonanywhere.com/home/zacam/app_image.git
-        git push pythonanywhere main
+        curl -H "Authorization: Token ${{ secrets.PA_API_TOKEN }}" \
+             -X POST https://www.pythonanywhere.com/api/v0/user/zacam/webapps/<your-web-app-name>/reload/
