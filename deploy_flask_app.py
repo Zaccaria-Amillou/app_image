@@ -1,3 +1,4 @@
+import os
 from pythonanywhere.api import Webapp
 
 def deploy():
