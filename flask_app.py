@@ -10,6 +10,7 @@ from keras.losses import categorical_crossentropy
 import subprocess
 from keras import backend as K
 
+
 # Nombre des images
 NB_IMAGES = 20
 
