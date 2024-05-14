@@ -17,14 +17,17 @@ if st.button('Submit'):
     if response.status_code == 200:
         st.success('Image processed successfully!')
 
+        # Create two columns for the first row
+        col1, col2 = st.columns(2)
+
         # Display the real image and mask
         response = requests.get(f'http://127.0.0.1:5000/static/data/predict/img.png')
         image = Image.open(io.BytesIO(response.content))
-        st.image(image, caption='Real Image', use_column_width=True)
+        col1.image(image, caption='Real Image', use_column_width=True)
 
         response = requests.get(f'http://127.0.0.1:5000/static/data/predict/mask.png')
         image = Image.open(io.BytesIO(response.content))
-        st.image(image, caption='Real Mask', use_column_width=True)
+        col2.image(image, caption='Real Mask', use_column_width=True)
 
         # Make a POST request to the Flask app to get the prediction
         response = requests.post(f'http://127.0.0.1:5000/predict/')
@@ -33,14 +36,17 @@ if st.button('Submit'):
         if response.status_code == 200:
             st.success('Prediction submitted successfully!')
 
+            # Create two columns for the second row
+            col3, col4 = st.columns(2)
+
             # Display the predicted mask and combined image
             response = requests.get(f'http://127.0.0.1:5000/static/data/predict/mask_predicted.png')
             image = Image.open(io.BytesIO(response.content))
-            st.image(image, caption='Predicted Mask', use_column_width=True)
+            col3.image(image, caption='Predicted Mask', use_column_width=True)
 
             response = requests.get(f'http://127.0.0.1:5000/static/data/predict/combined.png')
             image = Image.open(io.BytesIO(response.content))
-            st.image(image, caption='Combined Image', use_column_width=True)
+            col4.image(image, caption='Combined Image', use_column_width=True)
         else:
             st.error('Failed to submit prediction.')
     else:
