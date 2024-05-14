@@ -4,11 +4,7 @@ import cv2
 from PIL import Image
 import io
 import tensorflow as tf
-from flask import Flask, request, send_file, render_template, redirect, url_for
-from keras.models import load_model
-from keras.losses import categorical_crossentropy
-import subprocess
-from keras import backend as K
+from flask import Flask, request, render_template, redirect, url_for
 
 # Nombre des images
 NB_IMAGES = 20
@@ -52,26 +48,6 @@ cats_colors = {
  6:(200,200,0),
  7: (150,0,200)
 }
-
-
-def dice_coeff(y_true, y_pred):
-    """Calcule le coefficient de Dice entre les prédictions et les vraies valeurs."""
-    smooth = 1.
-    y_true_f = K.cast(K.flatten(y_true), K.floatx())
-    y_pred_f = K.cast(K.flatten(y_pred), K.floatx())
-    intersection = K.sum(y_true_f * y_pred_f)
-    score = (2. * intersection + smooth) / (K.sum(y_true_f) + K.sum(y_pred_f) + smooth)
-    return score
-
-def dice_loss(y_true, y_pred):
-    """Calcule la perte de Dice entre les prédictions et les vraies valeurs."""
-    loss = 1 - dice_coeff(y_true, y_pred)
-    return loss
-
-def total_loss(y_true, y_pred):
-    """Calcule la perte totale entre les prédictions et les vraies valeurs."""
-    loss = categorical_crossentropy(y_true, y_pred) + (3*dice_loss(y_true, y_pred))
-    return loss
 
 
 def get_data_prepared(path_X, dim):
