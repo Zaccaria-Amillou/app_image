@@ -18,6 +18,9 @@
     }
 }
 
+.navbar {
+    padding: 0.25rem 0.5rem; /* Adjust this to make the navbar smaller */
+}
 /* Définir les styles pour le corps de la page */
 body {
     /* Définir la police */
@@ -26,6 +29,7 @@ body {
     background-color: #f5f5f5;
     /* Définir la couleur du texte */
     color: #333;
+    padding-top: 50px;
 }
 
 /* Définir les styles pour le conteneur */

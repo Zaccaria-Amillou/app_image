@@ -1,17 +1,32 @@
 {% extends "layout.html" %}
 
-<!-- Début du bloc de contenu principal -->
 {% block body %}
-<!-- Conteneur principal avec padding vertical -->
 <div class="container py-5">
-    <div class="row"> <!-- Début de la rangée principale -->
-        <div class="col-lg-8 mx-auto">  <!-- Colonne centrée pour le contenu -->
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
             <h1 class="font-weight-light">Bienvenue sur notre Plateforme de Segmentation d'Images</h1>
+            <!-- Add the image under the welcome message -->
+            <img src="{{ url_for('static', filename='logo/future_vision.png') }}" alt="Future Vision" class="img-fluid mb-3">
             <p class="lead text-center">Notre plateforme utilise l'intelligence artificielle pour segmenter les images en différentes catégories de manière précise et efficace.</p>
             <p class="lead text-center">Vous pouvez tester notre modèle en utilisant une des images prédéfinies ou en téléchargeant votre propre image.</p>
-            <div class="mt-4 d-flex justify-content-between" style="gap: 2rem;"> <!-- Conteneur pour les boutons -->
-                <a href="/prediction/" class="btn btn-primary btn-lg">Tester avec une Image Prédéfinie</a> <!-- Bouton pour tester avec une image prédéfinie -->
-                <a href="/segment/" class="btn btn-secondary btn-lg">Tester avec Votre Propre Image</a>  <!-- Bouton pour tester avec une image personnalisée -->
+            <div class="mt-4 d-flex justify-content-between" style="gap: 2rem;">
+                <a href="/prediction/" class="btn btn-primary btn-lg btn-block mb-2">
+                    <i class="fas fa-image"></i> Tester avec une Image Prédéfinie
+                </a>
+                <a href="/segment/" class="btn btn-secondary btn-lg">
+                    <i class="fas fa-upload"></i> Tester avec Votre Propre Image
+                </a>
+            </div>
+            <!-- New section for Streamlit app -->
+            <div class="mt-5">
+                <h2 class="font-weight-light">Application Streamlit</h2>
+                <p class="lead">Nous avons également créé une application distincte en Streamlit pour le test des images par défaut. Vous pouvez y accéder en cliquant sur le bouton ci-dessous.</p>
+                <div class="d-flex justify-content-center">
+                    <a href="/streamlit" class="btn btn-info btn-lg">
+                        <img src="{{ url_for('static', filename='logo/streamlit_logo.png') }}" alt="Streamlit logo" style="width: 20px; height: 20px;">
+                        <i class="fas fa-external-link-alt"></i> Accéder à l'application Streamlit
+                    </a>
+                </div>
             </div>
         </div>
     </div>

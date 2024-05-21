@@ -29,5 +29,9 @@ class FlaskAppTestCase(unittest.TestCase):
         self.assertIn(b'</body>', response.data)
         self.assertIn(b'</html>', response.data)
 
+    def test_streamlit_status_code(self):
+        response = self.app.get('/streamlit')
+        self.assertEqual(response.status_code, 302)
+
 if __name__ == "__main__":
     unittest.main()
