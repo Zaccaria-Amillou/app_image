@@ -242,6 +242,10 @@ def results():
     categories = request.args.getlist("categories")
     return render_template("results.html", categories=categories)
 
+@app.route('/streamlit', methods=['GET'])
+def streamlit_page():
+    """Route for the Streamlit page."""
+    return redirect("https://cityscapeimg.streamlit.app", code=302)
 
 if __name__ == "__main__":
     app.run()
