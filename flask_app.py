@@ -84,7 +84,7 @@ path_files = getPathFiles()
 app = Flask(__name__)
 
 # chargement du modèle
-model = tf.lite.Interpreter(model_path="model/ResNet50_U-Net_basic.tflite")
+model = tf.lite.Interpreter(model_path="model/ResNet50_U-Net_augmented.tflite")
 model.allocate_tensors()
 
 

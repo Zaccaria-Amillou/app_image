@@ -7,7 +7,7 @@ This is a Flask application for image segmentation using a pre-trained model.
 The project is structured as follows:
 
 - `flask_app.py`: This is the main file that contains the Flask application.
-- `model/ResNet50_U-Net_basic.tflite`: This is the pre-trained model used for image segmentation.
+- `model/ResNet50_U-Net_basic_augmented.tflite`: This is the pre-trained model used for image segmentation.
 - `static/data`: This directory contains the images and masks used by the application.
 
 ## Features
